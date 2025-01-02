@@ -429,7 +429,7 @@ const removeSkill = (index) => {
                         name="name"
                         
                         value={formData.name}
-                        onChange={handleChange1}
+                        onChange={handleChange}
                         required
                         
                         
