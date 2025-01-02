@@ -1,0 +1,170 @@
+/* Resume Form Container */
+.resume-form {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #000000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+ 
+  .resume-form h1 {
+    text-align: center;
+    color: #facc15;
+    margin-bottom: 20px;
+  }
+  
+  .resume-form h2 {
+    color: #facc15;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+  }
+  
+  .resume-form form div {
+    margin-bottom: 15px;
+  }
+  
+  .resume-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #ddd;
+  }
+  
+  .resume-form input[type="text"],
+  .resume-form input[type="email"],
+  .resume-form textarea {
+    width: 98%;
+    padding: 10px;
+    border: 1px solid #facc15;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .resume-form textarea {
+    height: 80px;
+  }
+  
+  .resume-form button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .resume-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Checkbox Styling */
+  .resume-form input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  
+  .resume-form div button {
+    margin-top: 5px;
+  }
+  
+  /* Skill/Experience/Project Items */
+  .resume-form h3 {
+    font-size: 1rem;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    color: #facc15;
+  }
+  
+  .resume-form input::placeholder {
+    color: #aaa;
+    font-style: italic;
+  }
+  
+  .resume-form .remove-button {
+    margin-left: 10px;
+    color: #d9534f;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  
+  .resume-form .remove-button:hover {
+    color: #c9302c;
+  }
+  
+  .resume-form .add-button {
+    display: inline-block;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    color: #fff;
+    background-color: #28a745;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .resume-form .add-button:hover {
+    background-color: #218838;
+  }
+  .resume-container {
+    display: flex;
+    flex-direction: row; /* Default: form and preview side by side */
+    gap: 20px;
+    height: 100vh; /* Full viewport height */
+}
+  
+.resume-preview {
+    flex: 1; /* Take up available space */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #000000;
+    overflow-y: auto;
+}
+
+  .resume-form {
+    padding: 20px;
+    overflow-y: auto; /* Allow scrolling if form content exceeds height */
+    flex: 1; /* Take up available space */
+}
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+.card {
+    background-color: #facc15;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    width: 300px;
+}
+
+.card p {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+
+@media (max-width: 768px) {
+    .resume-container {
+        flex-direction: column; /* Stack the form and preview on mobile */
+    }
+
+    .resume-preview {
+        background-color: #000000; /* Optional: Change background color on mobile */
+    }
+}
