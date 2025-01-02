@@ -477,14 +477,14 @@ ${customSections}
         // 2. Compile LaTeX to PDF using pdflatex
         // exec(`pdflatex -interaction=nonstopmode -output-directory="${resumesDir}" "${latexFilePath}"`, (err, stdout, stderr) => {
         exec(`pdflatex -interaction=nonstopmode -output-directory="/tmp" "${latexFilePath}"`, (err, stdout, stderr) => {
-            // if (err) {
-            //     // Log LaTeX compilation errors
-            //     console.error('Error compiling LaTeX:', err.message);
-            //     console.error('stderr:', stderr);
-            //     console.log('stdout:', stdout);
-            //     // return res.status(500).send(`Failed to generate PDF from LaTeX: ${stderr}`);
-            // }
-            // console.log('LaTeX compilation output:', stdout);
+            if (err) {
+                // Log LaTeX compilation errors
+                console.error('Error compiling LaTeX:', err.message);
+                console.error('stderr:', stderr);
+                console.log('stdout:', stdout);
+                // return res.status(500).send(`Failed to generate PDF from LaTeX: ${stderr}`);
+            }
+            console.log('LaTeX compilation output:', stdout);
             
             // Define the path to the generated PDF
             // const pdfPath = path.join(resumesDir, `${escapedName.replace(/ /g, '_')}_resume.pdf`);
