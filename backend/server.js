@@ -8,17 +8,11 @@ const cors = require('cors');
 
 const app = express();
 app.use(express.json());
-// app.use(cors({
-//     origin: 'http://127.0.0.1:5173',
-//     methods: ['GET', 'POST'],
-//     allowedHeaders: ['Content-Type']
-// }));
 app.use(cors({
-    origin: 'https://design-your-career-path-tn9o.vercel.app',
+    origin: 'http://127.0.0.1:5173',
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type']
 }));
-
 
 // Ensure the 'resumes' directory exists
 const resumesDir = path.join(__dirname, 'resumes');
