@@ -468,42 +468,79 @@ ${customSections}
 `;
 
  // Save LaTeX content to a .tex file
-        const fileName = `${escapedName.replace(/ /g, '_')}_resume.tex`;
-        const latexFilePath = path.join(resumesDir, fileName);
-        fs.writeFileSync(latexFilePath, latexContent);
+//         const fileName = `${escapedName.replace(/ /g, '_')}_resume.tex`;
+//         const latexFilePath = path.join(resumesDir, fileName);
+//         fs.writeFileSync(latexFilePath, latexContent);
 
-        // 2. Compile LaTeX to PDF using pdflatex
-        exec(`pdflatex -interaction=nonstopmode -output-directory="${resumesDir}" "${latexFilePath}"`, (err, stdout, stderr) => {
-            // if (err) {
-            //     // Log LaTeX compilation errors
-            //     console.error('Error compiling LaTeX:', err.message);
-            //     console.error('stderr:', stderr);
-            //     console.log('stdout:', stdout);
-            //     // return res.status(500).send(`Failed to generate PDF from LaTeX: ${stderr}`);
-            // }
-            // console.log('LaTeX compilation output:', stdout);
+//         // 2. Compile LaTeX to PDF using pdflatex
+//         exec(`pdflatex -interaction=nonstopmode -output-directory="${resumesDir}" "${latexFilePath}"`, (err, stdout, stderr) => {
+//             // if (err) {
+//             //     // Log LaTeX compilation errors
+//             //     console.error('Error compiling LaTeX:', err.message);
+//             //     console.error('stderr:', stderr);
+//             //     console.log('stdout:', stdout);
+//             //     // return res.status(500).send(`Failed to generate PDF from LaTeX: ${stderr}`);
+//             // }
+//             // console.log('LaTeX compilation output:', stdout);
             
-            // Define the path to the generated PDF
-            const pdfPath = path.join(resumesDir, `${escapedName.replace(/ /g, '_')}_resume.pdf`);
+//             // Define the path to the generated PDF
+//             const pdfPath = path.join(resumesDir, `${escapedName.replace(/ /g, '_')}_resume.pdf`);
             
-            // Ensure PDF was generated
-            if (!fs.existsSync(pdfPath)) {
-                console.error('PDF not found:', pdfPath);
-                return res.status(500).send('PDF generation failed.');
-            }
+//             // Ensure PDF was generated
+//             if (!fs.existsSync(pdfPath)) {
+//                 console.error('PDF not found:', pdfPath);
+//                 return res.status(500).send('PDF generation failed.');
+//             }
 
-            // Return the URL to the generated resume PDF
-            res.json({ resumeUrl: `/resumes/${escapedName.replace(/ /g, '_')}_resume.pdf` });
-        });
+//             // Return the URL to the generated resume PDF
+//             res.json({ resumeUrl: `/resumes/${escapedName.replace(/ /g, '_')}_resume.pdf` });
+//         });
 
-    } catch (err) {
-        console.error('Error generating resume:', err);
-        res.status(500).send('Failed to generate resume.');
+//     } catch (err) {
+//         console.error('Error generating resume:', err);
+//         res.status(500).send('Failed to generate resume.');
+//     }
+// });
+
+// app.use('/resumes', express.static(path.join(__dirname, 'resumes')));
+
+// app.listen(5001, () => {
+//     console.log('Server running on http://localhost:5001');
+// });
+        // Save LaTeX content to a .tex file
+const fileName = `${escapedName.replace(/ /g, '_')}_resume.tex`;
+// Use /tmp directory for file storage
+const latexFilePath = path.join('/tmp', fileName);
+
+fs.writeFileSync(latexFilePath, latexContent);
+
+// Compile LaTeX to PDF using pdflatex
+exec(`pdflatex -interaction=nonstopmode -output-directory="/tmp" "${latexFilePath}"`, (err, stdout, stderr) => {
+    // Log errors if LaTeX compilation fails
+    if (err) {
+        console.error('Error compiling LaTeX:', err.message);
+        console.error('stderr:', stderr);
+        console.log('stdout:', stdout);
+        return res.status(500).send(`Failed to generate PDF from LaTeX: ${stderr}`);
     }
+
+    // Define the path to the generated PDF in the /tmp directory
+    const pdfPath = path.join('/tmp', `${escapedName.replace(/ /g, '_')}_resume.pdf`);
+    
+    // Ensure PDF was generated
+    if (!fs.existsSync(pdfPath)) {
+        console.error('PDF not found:', pdfPath);
+        return res.status(500).send('PDF generation failed.');
+    }
+
+    // Return the URL to the generated resume PDF
+    res.json({ resumeUrl: `/resumes/${escapedName.replace(/ /g, '_')}_resume.pdf` });
 });
 
-app.use('/resumes', express.static(path.join(__dirname, 'resumes')));
+// Serve the generated resume file from /tmp via a route
+app.use('/resumes', express.static('/tmp'));
 
+// Start the server
 app.listen(5001, () => {
     console.log('Server running on http://localhost:5001');
 });
