@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.31)  2 JAN 2025 13:21
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.31)  2 JAN 2025 15:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -805,20 +805,11 @@ the way to recover is to insert both the forgotten and the
 deleted material, e.g., by typing `I$}'.
 
 
-Package hyperref Warning: Suppressing link with empty target on input line 185.
-
-
-LaTeX Font Info:    Trying to load font information for U+fontawesomethree on i
-nput line 185.
-(/usr/local/texlive/2024/texmf-dist/tex/latex/fontawesome/ufontawesomethree.fd
-File: ufontawesomethree.fd 2016/05/22 Font definitions for U/fontawesomethree.
-)
-
 LaTeX Font Warning: Font shape `OT1/cmr/bx/sc' undefined
 (Font)              using `OT1/cmr/bx/n' instead on input line 193.
 
 
-Overfull \hbox (1.07219pt too wide) in alignment at lines 206--206
+Overfull \hbox (1.07219pt too wide) in alignment at lines 204--204
 [][][][] 
  []
 
@@ -827,9 +818,7 @@ Overfull \hbox (1.07219pt too wide) in alignment at lines 206--206
 [1
 
 {/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/loc
-al/texlive/2024/texmf-dist/fonts/enc/dvips/fontawesome/fontawesometwo.enc}{/usr
-/local/texlive/2024/texmf-dist/fonts/enc/dvips/fontawesome/fontawesomethree.enc
-}]
+al/texlive/2024/texmf-dist/fonts/enc/dvips/fontawesome/fontawesometwo.enc}]
 (/Users/harshitrishav/Downloads/resume-maker/backend/resumes/Harshit_Rishav_res
 ume.aux)
  ***********
@@ -850,11 +839,11 @@ Package rerunfilecheck Info: Checksums for `Harshit_Rishav_resume.out':
 (rerunfilecheck)             After:  813EB81B7D6434E0F6E8CFE1F554CB3A;88.
  ) 
 Here is how much of TeX's memory you used:
- 25907 strings out of 473254
- 497691 string characters out of 5717955
- 856594 words of memory out of 5000000
- 48716 multiletter control sequences out of 15000+600000
- 563447 words of font info for 58 fonts, out of 8000000 for 9000
+ 25894 strings out of 473254
+ 497265 string characters out of 5717955
+ 854594 words of memory out of 5000000
+ 48708 multiletter control sequences out of 15000+600000
+ 563269 words of font info for 57 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,8n,93p,485b,454s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/fontawesome/FontAwesom
@@ -863,10 +852,10 @@ e.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12
 .pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.p
 fb>
 Output written on /Users/harshitrishav/Downloads/resume-maker/backend/resumes/H
-arshit_Rishav_resume.pdf (1 page, 58034 bytes).
+arshit_Rishav_resume.pdf (1 page, 46584 bytes).
 PDF statistics:
- 42 PDF objects out of 1000 (max. 8388607)
- 29 compressed objects within 1 object stream
+ 38 PDF objects out of 1000 (max. 8388607)
+ 26 compressed objects within 1 object stream
  3 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
