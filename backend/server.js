@@ -14,7 +14,7 @@ app.use(express.json());
 //     allowedHeaders: ['Content-Type']
 // }));
 app.use(cors({
-    origin: 'https://design-your-career-path.vercel.app',
+    origin: 'https://design-your-career-path-tn9o.vercel.app',
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type']
 }));
