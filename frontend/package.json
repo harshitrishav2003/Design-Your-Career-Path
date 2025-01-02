@@ -3,8 +3,7 @@
     "version": "1.0.0",
     "scripts": {
         "dev": "vite",
-        
-        "build": "react-scripts build",
+        "build": "vite build",  // Use Vite build instead of react-scripts
         "start": "vite preview"
     },
     "dependencies": {
