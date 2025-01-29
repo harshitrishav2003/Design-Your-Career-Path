@@ -5,7 +5,7 @@ const fs = require('fs');
 const { exec } = require('child_process'); // To run the LaTeX compiler
 const { PDFDocument, StandardFonts } = require('pdf-lib');
 const cors = require('cors');
-
+const port = process.env.PORT || 5001;
 const app = express();
 app.use(express.json());
 app.use(cors({
@@ -503,7 +503,7 @@ ${customSections}
 });
 
 app.use('/resumes', express.static(path.join(__dirname, 'resumes')));
-const port = process.env.PORT || 5001;
-app.listen(5001, () => {
-    console.log('Server running on http://localhost:5001');
+
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
 });
