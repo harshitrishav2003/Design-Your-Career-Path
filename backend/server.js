@@ -9,7 +9,7 @@ const cors = require('cors');
 const app = express();
 app.use(express.json());
 app.use(cors({
-    origin: 'https://design-your-career-path-hvc5.vercel.app',
+    origin: 'http://127.0.0.1:5173',
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type']
 }));
@@ -469,27 +469,22 @@ ${customSections}
 
  // Save LaTeX content to a .tex file
         const fileName = `${escapedName.replace(/ /g, '_')}_resume.tex`;
-        // const latexFilePath = path.join(resumesDir, fileName);
-        const latexFilePath = path.join('/tmp', fileName);
-
+        const latexFilePath = path.join(resumesDir, fileName);
         fs.writeFileSync(latexFilePath, latexContent);
 
         // 2. Compile LaTeX to PDF using pdflatex
-        // exec(`pdflatex -interaction=nonstopmode -output-directory="${resumesDir}" "${latexFilePath}"`, (err, stdout, stderr) => {
-        exec(`pdflatex -interaction=nonstopmode -output-directory="/tmp" "${latexFilePath}"`, (err, stdout, stderr) => {
-            if (err) {
-                // Log LaTeX compilation errors
-                console.error('Error compiling LaTeX:', err.message);
-                console.error('stderr:', stderr);
-                console.log('stdout:', stdout);
-                // return res.status(500).send(`Failed to generate PDF from LaTeX: ${stderr}`);
-            }
-            console.log('LaTeX compilation output:', stdout);
+        exec(`pdflatex -interaction=nonstopmode -output-directory="${resumesDir}" "${latexFilePath}"`, (err, stdout, stderr) => {
+            // if (err) {
+            //     // Log LaTeX compilation errors
+            //     console.error('Error compiling LaTeX:', err.message);
+            //     console.error('stderr:', stderr);
+            //     console.log('stdout:', stdout);
+            //     // return res.status(500).send(`Failed to generate PDF from LaTeX: ${stderr}`);
+            // }
+            // console.log('LaTeX compilation output:', stdout);
             
             // Define the path to the generated PDF
-            // const pdfPath = path.join(resumesDir, `${escapedName.replace(/ /g, '_')}_resume.pdf`);
-            const pdfPath = path.join('/tmp', `${escapedName.replace(/ /g, '_')}_resume.pdf`);
-    
+            const pdfPath = path.join(resumesDir, `${escapedName.replace(/ /g, '_')}_resume.pdf`);
             
             // Ensure PDF was generated
             if (!fs.existsSync(pdfPath)) {
@@ -507,7 +502,7 @@ ${customSections}
     }
 });
 
-app.use('/resumes', express.static('/tmp'));
+app.use('/resumes', express.static(path.join(__dirname, 'resumes')));
 
 app.listen(5001, () => {
     console.log('Server running on http://localhost:5001');
