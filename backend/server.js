@@ -9,7 +9,7 @@ const port = process.env.PORT || 5001;
 const app = express();
 app.use(express.json());
 app.use(cors({
-    origin: 'https://design-your-career-path-hvc5.vercel.app/',
+    origin: 'https://design-your-career-path-hvc5.vercel.app',
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type']
 }));
