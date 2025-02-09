@@ -365,7 +365,7 @@ const removeSkill = (index) => {
 
     
     const updatePreview = (updatedForm) => {
-        fetch('https://design-your-career-path.onrender.com/api/generate-resume', {
+        fetch('https://design-your-career-path-2.onrender.com/api/generate-resume/', {
             method: 'POST',
             body: JSON.stringify(updatedForm),
             headers: {
