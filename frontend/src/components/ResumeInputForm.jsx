@@ -376,7 +376,7 @@ const removeSkill = (index) => {
        .then(data => {
             console.log('Response from backend:', data);  // <-- Log the response
             if (data.resumeUrl) {
-                setPreviewUrl(`https://design-your-career-path.onrender.com${data.resumeUrl}?t=${new Date().getTime()}`); // Add a timestamp to avoid caching
+                setPreviewUrl(`https://design-your-career-path-2.onrender.com${data.resumeUrl}?t=${new Date().getTime()}`); // Add a timestamp to avoid caching
             } else {
                 alert('Failed to generate PDF. Please try again.');
             } 
@@ -390,13 +390,13 @@ const removeSkill = (index) => {
 
         try {
             // Send formData to backend to generate the resume
-            const response = await axios.post('https://design-your-career-path.onrender.com/api/generate-resume', formData);
+            const response = await axios.post('https://design-your-career-path-2.onrender.com/api/generate-resume', formData);
             
             console.log(response.data.resumeUrl);
             
             // Check if the response contains a resume URL
             if (response.data && response.data.resumeUrl) {
-                const downloadLink = `https://design-your-career-path.onrender.com${response.data.resumeUrl}`;
+                const downloadLink = `https://design-your-career-path-2.onrender.com${response.data.resumeUrl}`;
                 console.log('Generated Resume URL:', downloadLink);
     
                 // Create an anchor element to trigger download
