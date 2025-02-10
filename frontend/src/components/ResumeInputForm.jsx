@@ -66,7 +66,7 @@ const ResumeInputForm = () => {
             const updatedForm = { ...prevFormData, [name]: value };
     
             // After updating the form data, trigger the preview update
-            updatePreview(updatedForm); // Call updatePreview with the updated form data
+            // updatePreview(updatedForm); // Call updatePreview with the updated form data
             return updatedForm;
         });
     };
@@ -365,7 +365,7 @@ const removeSkill = (index) => {
 
     
     const updatePreview = (updatedForm) => {
-        fetch('https://design-your-career-path-2.onrender.com/api/generate-resume/', {
+        fetch('https://design-your-career-path-2.onrender.com/api/generate-resume', {
             method: 'POST',
             body: JSON.stringify(updatedForm),
             headers: {
@@ -1168,6 +1168,7 @@ const removeSkill = (index) => {
     </div>
 </div>
             )}
+            <button className='preview-btn' onClick={()=>updatePreview(formData)}>Latest Preview</button>
   </div>
 </div>
         
