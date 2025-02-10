@@ -62,6 +62,23 @@
     transition: background-color 0.3s;
   }
   
+  .preview-btn{
+        display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .preview-btn:hover{
+    background-color: #0056b3;
+  }
+
   .resume-form button:hover {
     background-color: #0056b3;
   }
