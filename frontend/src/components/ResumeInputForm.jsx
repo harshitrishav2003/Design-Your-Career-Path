@@ -538,7 +538,7 @@ const removeSkill = (index) => {
     {formData.education.map((edu, index) => (
         <div key={index} className="education-entry">
             <div>
-                <label htmlFor={`branch-${index}`}>Branch:</label>
+                <label htmlFor={`branch-${index}`}>Degree/Branch:</label>
                 <input
                     type="text"
                     id={`branch-${index}`}
@@ -821,15 +821,9 @@ const removeSkill = (index) => {
 
 </div>
 
-{/* Button to add new Experience */}
-{/* <button type="button" onClick={addExperience}>
-    Add Another Experience
-</button> */}
 
 <div>
 <h2>Projects</h2>
-
-{/* Checkbox to include/exclude Projects section */}
 <div>
     <label>
         <input
@@ -939,10 +933,6 @@ const removeSkill = (index) => {
                </button>
                 )}
 </div>
-
-
-
-
 <div>
 <h2>Skills</h2>
                 <label>
@@ -1020,20 +1010,7 @@ const removeSkill = (index) => {
                 />
             </div>
 
-            {/* <div>
-                <label htmlFor={`achievementDetails${index}`}>Achievement Details:</label>
-                <textarea
-                    id={`achievementDetails${index}`}
-                    name="achievementDetails"
-                    value={achievement.achievementDetails}
-                   
-                    onChange={(e) => {
-                        handleAchievementChange(e, index);  // First function
-                        handleChange(e);  // Second function
-                    }}
-                />
-
-            </div> */}
+           
 
             <button type="button" onClick={() => removeAchievement(index)}>
                 Remove Achievement
@@ -1049,10 +1026,7 @@ const removeSkill = (index) => {
                 )}
 </div>
 
-{/* <button type="button" onClick={addAchievement}>
-    Add Another Achievement
-</button> */}
-{/* Extra-Curricular Section */}
+
 <div>
                 <label>
                     <input
@@ -1146,29 +1120,28 @@ const removeSkill = (index) => {
                 
             ))}
 
-           
-
-
-
-            
-
             <button type="submit">Generate Resume</button>
             </form>
             
             
         </div>
         <div className="resume-preview">
-    <h2>Preview</h2>
+        <div className="preview-header">
+        <h2>Preview</h2>
+        <button className="preview-btn" onClick={() => updatePreview(formData)}>Latest Preview</button>
+    </div>
+    
     {previewUrl ? (
                 <iframe id="pdfPreview" src={previewUrl} style={{ width: '100%', height: '600px' }} />
             ) : (
                 <div className="card-container">
     <div className="card">
-        <p>No preview available yet. Start filling out the form.</p>
+    <p>No preview available yet. Begin filling out the form or hit 'Latest Preview' to generate a live preview!</p>
+    
     </div>
 </div>
             )}
-            <button className='preview-btn' onClick={()=>updatePreview(formData)}>Latest Preview</button>
+           
   </div>
 </div>
         

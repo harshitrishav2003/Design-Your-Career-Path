@@ -1,83 +1,107 @@
 .about-us-container {
-    background-color: #000000; /* Dark background */
-    color: #fff; /* White text */
-    font-family: 'Arial', sans-serif;
-    padding: 40px;
-    max-width: 1200px;
-    margin: 0 auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    /* justify-content:left; */
+  background-color: #000000; /* Dark background */
+  color: #fff; /* White text */
+  font-family: 'Arial', sans-serif;
+  padding: 40px 60px; /* More padding for balanced spacing */
+  max-width: 1000px; /* Restrict width for better formatting */
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  text-align: justify; /* Align text properly */
+}
+
+/* Headings */
+.about-us-container h1, .about-us-container h2 {
+  font-family: 'Helvetica', sans-serif;
+  font-weight: 600;
+  color: #00bcd4; /* Accent color */
+  text-align: center; /* Center headings */
+}
+
+/* Paragraphs */
+.about-us-container p {
+  font-size: 1.1em;
+  line-height: 1.8; /* More readable line spacing */
+  margin-bottom: 20px;
+  text-align: justify; /* Ensure text is justified */
+  word-wrap: break-word; /* Prevent overflow */
+}
+
+/* Bullet Points */
+.about-us-container ul {
+  list-style-type: none;
+  padding-left: 20px; /* Align with text */
+}
+
+.about-us-container ul li {
+  font-size: 1.1em;
+  margin-bottom: 15px;
+  position: relative;
+  padding-left: 30px; /* Ensure proper spacing */
+}
+
+.about-us-container ul li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 1.3em;
+  color: #00bcd4; /* Accent color for checkmark */
+}
+
+/* Strong Text */
+.about-us-container strong {
+  color: #00bcd4; /* Accent color */
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .about-us-container {
+      padding: 30px;
+      max-width: 90%;
   }
-  
-  .about-us-container h1, .about-us-container h2 {
-    font-family: 'Helvetica', sans-serif;
-    font-weight: 600;
-    color: #00bcd4; /* Accent color */
-  }
-  
-  .about-us-container p {
-    font-size: 1.1em;
-    line-height: 1.6;
-    margin-bottom: 20px;
-    text-align: justify;
-  }
-  
-  .about-us-container ul {
-    list-style-type: none;
-    padding-left: 0;
-  }
-  
-  .about-us-container ul li {
-    font-size: 1.1em;
-    margin-bottom: 15px;
-    position: relative;
-  }
-  
-  .about-us-container ul li::before {
-    content: '✓';
-    position: absolute;
-    left: -30px;
-    top: 0;
-    font-size: 1.3em;
-    color: #00bcd4; /* Accent color for checkmark */
-  }
-  
-  .about-us-container strong {
-    color: #00bcd4; /* Accent color for strong text */
-  }
-  
+
   .about-us-container h1 {
-    text-align: center;
-    font-size: 3em;
-    margin-bottom: 20px;
-  }
-  
-  .about-us-container h2 {
-    font-size: 2em;
-    margin-top: 40px;
-    margin-bottom: 15px;
-  }
-  
-  @media (max-width: 768px) {
-    .about-us-container {
-      padding: 20px;
-    }
-  
-    .about-us-container h1 {
       font-size: 2.5em;
-    }
-  
-    .about-us-container h2 {
-      font-size: 1.8em;
-    }
-  
-    .about-us-container p {
-      font-size: 1em;
-    }
-  
-    .about-us-container ul li {
-      font-size: 1em;
-    }
   }
-  
+
+  .about-us-container h2 {
+      font-size: 1.8em;
+  }
+
+  .about-us-container p {
+      font-size: 1em;
+  }
+
+  .about-us-container ul li {
+      font-size: 1em;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-us-container {
+      padding: 20px;
+      max-width: 95%;
+  }
+
+  .about-us-container h1 {
+      font-size: 2.2em;
+  }
+
+  .about-us-container h2 {
+      font-size: 1.6em;
+  }
+
+  .about-us-container p {
+      font-size: 0.95em;
+      line-height: 1.6;
+  }
+
+  .about-us-container ul {
+      padding-left: 15px;
+  }
+
+  .about-us-container ul li {
+      font-size: 0.95em;
+  }
+}
