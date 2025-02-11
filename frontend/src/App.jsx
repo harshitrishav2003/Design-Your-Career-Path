@@ -28,11 +28,13 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import AboutUs from './components/aboutUs';
 import "./App.css";
+import { Analytics } from "@vercel/analytics/react"
 
 
 const App = () => {
   return (
     <Router>
+      <Analytics />
       <div className="app-container">
         <Header />
         <main className="content">
