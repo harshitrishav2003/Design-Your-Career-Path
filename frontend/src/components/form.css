@@ -186,11 +186,55 @@
 
 
 @media (max-width: 768px) {
-    .resume-container {
-        flex-direction: column; /* Stack the form and preview on mobile */
-    }
+  .resume-container {
+      flex-direction: column; /* Stack form and preview */
+      min-height: 100vh; /* Prevent content clipping */
+      gap: 10px;
+      padding: 10px; /* Ensure space around elements */
+      box-sizing: border-box;
+  }
 
-    .resume-preview {
-        background-color: #000000; /* Optional: Change background color on mobile */
-    }
+  .resume-form, .resume-preview {
+      width: 100%; /* Full width */
+      padding: 15px;
+      border-radius: 8px;
+      box-sizing: border-box;
+  }
+
+  .resume-form h1 {
+      font-size: 1.5rem; /* Adjust heading size */
+  }
+
+  .resume-form h2 {
+      font-size: 1rem;
+  }
+
+  .resume-form input[type="text"],
+  .resume-form input[type="email"],
+  .resume-form textarea,
+  .resume-form button {
+      width: 100%; /* Full width for better mobile experience */
+      box-sizing: border-box;
+  }
+
+  .resume-form button {
+      padding: 12px;
+      font-size: 1rem;
+  }
+
+  .preview-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+  }
+
+  .card-container {
+      min-height: auto;
+      padding: 10px;
+  }
+
+  .card {
+      width: 90%;
+      padding: 15px;
+  }
 }
