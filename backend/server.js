@@ -30,7 +30,7 @@ function escapeLatexSpecialChars(input) {
     if (input && typeof input === 'string') {
         return input.replace(/([#%\^&_\${}~])/g, '\\$1');
     }
-    return input;  // Return undefined or input as is if not a string
+    return input; 
 }
 
 
@@ -410,8 +410,8 @@ if (formData.includeSocial && formData.socialLinks.length > 0) {
     
     \\small
     \\raisebox{-0.1\\height}\\faPhone\\ \\underline{${escapedMobile || 'Mobile'}}} \\hfill
-    \\raisebox{-0.1\\height}\\faEnvelope\ \\underline{${formData.email.replace(/_/g, '\\_').replace(/@/g, '\\@') || 'Email'}} \\hfill
-    ${escapedRollNo ? `\\underline{${escapedRollNo}} \\hfill` : ''}
+   \\raisebox{-0.1\\height}\\faEnvelope\ \\underline{${formData.email.replace(/_/g, '\\_') || 'Email'}} \\hfill
+    ${escapedRollNo ? `\\underline{${escapedRollNo}} \\hfill` : ''} 
     ${socialLinksLatex}
 \\end{center}
 
