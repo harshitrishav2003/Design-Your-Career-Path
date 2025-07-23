@@ -1,0 +1,34 @@
+# Use a base image with LaTeX installed
+FROM texlive/texlive:latest
+
+# Install necessary system dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    wget \
+    git \
+    unzip \
+    xz-utils \
+    latexmk \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Node.js
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy package.json and package-lock.json first for dependency installation
+COPY package*.json ./
+
+# Install Node.js dependencies
+RUN npm install
+
+# Copy the rest of the application code
+COPY . .
+
+# Expose the port the app runs on
+EXPOSE 5001
+
+# Start the server
+CMD ["node", "server.js"]

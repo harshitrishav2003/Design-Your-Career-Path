@@ -1,0 +1,14 @@
+# version: '3.8'
+
+services:
+  resume-generator:
+    build: .
+    container_name: resume-generator
+    ports:
+      - "5001:5001"
+    volumes:
+      - .:/app
+    env_file:
+      - .env   # <-- add this!
+    restart: unless-stopped
+
