@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: 'http://localhost:5001/api',
+    baseURL: 'https://design-your-career-path-2.onrender.com/api',
     withCredentials: true,
 });
 
