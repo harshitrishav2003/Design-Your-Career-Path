@@ -109,9 +109,9 @@ const generateResumePreview = async (formData) => {
 
         console.log("response", response)
         const { resumeUrl } = response.data.data || {};
-        console.log(`${'http://localhost:5001'}${resumeUrl}?t=${Date.now()}`)
+        console.log(`${'https://design-your-career-path-2.onrender.com'}${resumeUrl}?t=${Date.now()}`)
         if (resumeUrl) {
-            return `${'http://localhost:5001'}${resumeUrl}?t=${Date.now()}`;
+            return `${'https://design-your-career-path-2.onrender.com'}${resumeUrl}?t=${Date.now()}`;
         } else {
             throw new Error('Failed to generate PDF preview.');
         }
