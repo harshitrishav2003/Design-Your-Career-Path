@@ -18,7 +18,7 @@ app.use('/resumes', express.static(path.join(__dirname, '../resumes')));
 //         credentials: true
 // }))
 // Define the allowed origins
-const allowedOrigins = ['http://localhost:5174'];
+const allowedOrigins = ['https://designyourcareerpath.in'];
 const corsOptions = {
         origin: function (origin, callback) {
                 // Check if the origin is in the allowed list or not
