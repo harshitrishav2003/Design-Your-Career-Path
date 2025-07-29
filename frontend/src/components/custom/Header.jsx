@@ -61,7 +61,7 @@ function Header() {
         <div className="flex items-center gap-5">
           <Link
             to="/about-us"
-            className="text-sm text-primary hover:text-primary/80 font-medium transition-colors"
+            className="hidden sm:block text-sm text-primary hover:text-primary/80 font-medium transition-colors"
           >
             About Us
           </Link>
