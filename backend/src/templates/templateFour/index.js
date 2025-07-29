@@ -98,11 +98,21 @@ export default function buildTemplateFourLatex(formData) {
         data.projects.forEach(proj => {
             const projectName = latexEscape(proj.projectName || "");
             const link = proj.link || "";
-            const desc = latexEscape(proj.description || "");
+            const desc = proj.description || "";
 
             projectsLatex += `\\headingBf{${projectName}}{\\href{${link}}{Demo}}\n`;
             projectsLatex += `\\begin{resume_list}\n`;
-            projectsLatex += `\\item ${desc}\n`;
+            
+            // Handle bullet points properly
+            const projectDescLines = splitDescription(desc);
+            if (projectDescLines.length > 0) {
+                projectDescLines.forEach(line => {
+                    projectsLatex += `\\item ${latexEscape(line)}\n`;
+                });
+            } else {
+                projectsLatex += `\\item ${latexEscape(desc)}\n`;
+            }
+            
             projectsLatex += `\\end{resume_list}\n\n`;
         });
     }

@@ -144,17 +144,15 @@ function Home() {
               resume with AI. The suggestions were spot on and saved me so much
               time.&rdquo;
             </p>
-            <p className="font-semibold text-primary">— Josh Grazioso</p>
+            <p className="font-semibold text-primary">— Kishore Kumar</p>
           </div>
 
           {/* Testimonial 2 */}
           <div className="rounded-l bg-white shadow-md p-8 hover:shadow-lg transition">
             <p className="text-gray-700 text-md leading-relaxed mb-4">
-              &ldquo;Using this AI resume builder was a game changer — I finally
-              feel confident sending out my applications. I got interview calls
-              within a week!&rdquo;
+              &ldquo;Super easy to use and gave my resume a professional edge. Loved it!!&rdquo;
             </p>
-            <p className="font-semibold text-primary">— Nicole Grazioso</p>
+            <p className="font-semibold text-primary">— Deepanshu</p>
           </div>
         </div>
       </section>

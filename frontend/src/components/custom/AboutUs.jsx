@@ -122,9 +122,9 @@ export default function AboutUs() {
     </Button>
   </div>
 
-  <p className="mt-6 text-white/70 text-sm">
+  {/* <p className="mt-6 text-white/70 text-sm">
     ✅ Trusted by over 5,000 professionals worldwide.
-  </p>
+  </p> */}
 </section>
 
     </main>

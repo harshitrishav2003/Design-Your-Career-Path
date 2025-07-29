@@ -7,8 +7,12 @@ export default function Footer() {
         <div className="flex flex-col items-center gap-2 px-4 md:flex-row md:gap-2 md:px-0">
           <footer className="text-center md:text-left py-4">
             <p className="text-sm text-muted-foreground">
-              Designed, built, and maintained with ❤️ by{" "}
-              <span className="font-semibold text-primary">Harshit Rishav</span>{" "}
+             Designed, built, and maintained by{" "}
+              <span className="font-semibold text-primary">
+                <a href="https://www.linkedin.com/in/harshit-rishav-7683a2201/" target="_blank" rel="noopener noreferrer">
+                  Harshit Rishav
+                </a>
+              </span>{" "}
               — empowering your career growth.
             </p>
           </footer>
@@ -21,12 +25,12 @@ export default function Footer() {
             >
               About Us
             </Link>
-            <Link
+            {/* <Link
               to="/contact"
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
             >
               Contact
-            </Link>
+            </Link> */}
           </nav>
           <p className="text-center text-sm text-muted-foreground md:text-left">
             &copy; {new Date().getFullYear()} Design Your Career Path. All
