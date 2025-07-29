@@ -6,10 +6,26 @@ export function escapeLatexSpecialChars(input) {
     return input;
 }
 
-// Optional: If you want reusable description splitter
+// Improved function to handle HTML bullet points and convert to LaTeX format
 export function splitDescription(desc) {
-    return desc
-        .replace(/<[^>]+>/g, "")
+    if (!desc || typeof desc !== "string") {
+        return [];
+    }
+    
+    // First, handle HTML bullet points (ul/li tags)
+    let processedDesc = desc
+        .replace(/<ul[^>]*>/gi, '')  // Remove opening ul tags
+        .replace(/<\/ul>/gi, '')      // Remove closing ul tags
+        .replace(/<ol[^>]*>/gi, '')   // Remove opening ol tags
+        .replace(/<\/ol>/gi, '')      // Remove closing ol tags
+        .replace(/<li[^>]*>/gi, '• ') // Convert li tags to bullet points
+        .replace(/<\/li>/gi, '\n')    // Replace closing li with newline
+        .replace(/<br\s*\/?>/gi, '\n') // Convert br tags to newlines
+        .replace(/<[^>]+>/g, "")      // Remove any remaining HTML tags
+        .trim();
+    
+    // Split by newlines and filter out empty lines
+    return processedDesc
         .split("\n")
         .map(line => line.trim())
         .filter(Boolean);

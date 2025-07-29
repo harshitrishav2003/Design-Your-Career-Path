@@ -20,15 +20,22 @@ export default function buildTemplateOneLatex(formData) {
         experienceLatex += "\\section*{EXPERIENCE}\n";
         data.experience.forEach((exp) => {
             const period = `${exp.start} -- ${exp.end}`;
-            const workSummary = splitDescription(exp.desc)
-                .map(line => `${line}`)
-                .join(" \\\\ ");
             experienceLatex += `
 \\textbf{${exp.position}} at ${exp.company} (${exp.city}, ${exp.state}) \\\\
 ${period} \\\\
-${workSummary}
-\\vspace{6pt}
-      `;
+`;
+            
+            // Handle bullet points properly
+            const workSummaryLines = splitDescription(exp.desc);
+            if (workSummaryLines.length > 0) {
+                experienceLatex += `\\begin{itemize}\n`;
+                workSummaryLines.forEach(line => {
+                    experienceLatex += `\\item ${line}\n`;
+                });
+                experienceLatex += `\\end{itemize}\n`;
+            }
+            
+            experienceLatex += `\\vspace{6pt}\n`;
         });
     }
 
@@ -38,10 +45,23 @@ ${workSummary}
         educationLatex += "\\section*{EDUCATION}\n";
         data.education.forEach((edu) => {
             educationLatex += `
-  \\textbf{${edu.degree} in ${edu.major}} - ${edu.university} \\\\
-  ${edu.start} -- ${edu.end}
-  \\vspace{6pt}
-      `;
+\\textbf{${edu.degree} in ${edu.major}} - ${edu.university} \\\\
+${edu.start} -- ${edu.end}
+`;
+            
+            // Handle bullet points in education description if present
+            if (edu.desc && edu.desc.trim() !== "") {
+                const eduDescLines = splitDescription(edu.desc);
+                if (eduDescLines.length > 0) {
+                    educationLatex += `\\begin{itemize}\n`;
+                    eduDescLines.forEach(line => {
+                        educationLatex += `\\item ${line}\n`;
+                    });
+                    educationLatex += `\\end{itemize}\n`;
+                }
+            }
+            
+            educationLatex += `\\vspace{6pt}\n`;
         });
     }
 
@@ -51,11 +71,21 @@ ${workSummary}
         projectsLatex += "\\section*{PROJECTS}\n";
         formData.projects.forEach((proj) => {
             projectsLatex += `
-  \\textbf{${proj.projectName}} \\\\
-  \\href{${proj.projectLink}}{Project Link} \\\\
-  ${proj.description}
-  \\vspace{6pt}
-      `;
+\\textbf{${proj.projectName}} \\\\
+\\href{${proj.projectLink}}{Project Link} \\\\
+`;
+            
+            // Handle bullet points properly
+            const projectDescLines = splitDescription(proj.description);
+            if (projectDescLines.length > 0) {
+                projectsLatex += `\\begin{itemize}\n`;
+                projectDescLines.forEach(line => {
+                    projectsLatex += `\\item ${line}\n`;
+                });
+                projectsLatex += `\\end{itemize}\n`;
+            }
+            
+            projectsLatex += `\\vspace{6pt}\n`;
         });
     }
 

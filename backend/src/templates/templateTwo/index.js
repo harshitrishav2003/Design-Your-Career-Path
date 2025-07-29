@@ -4,6 +4,15 @@ import { splitDescription } from "../../utils/escapeUtils.js";
 export default function buildTemplateTwoLatex(formData) {
    const data = prepareResumeData(formData);
 
+   // === Summary ===
+   let summaryLatex = "";
+   if (data.summary && data.summary.trim() !== "") {
+      summaryLatex += `\\section{Professional Summary}\n`;
+      summaryLatex += `\\begin{itemize}[leftmargin=0.004in, label={}]\n`;
+      summaryLatex += `\\resumeItem{${data.summary}}\n`;
+      summaryLatex += `\\end{itemize}\n`;
+   }
+
    // === Work Experience ===
    let workExperienceLatex = "";
    if (data.experience.length > 0) {
@@ -115,7 +124,15 @@ export default function buildTemplateTwoLatex(formData) {
 `;
 
          projectsLatex += `\\resumeItemListStart\n`;
-         projectsLatex += `\\resumeItem{${desc}}\n`;
+         // Handle bullet points properly
+         const projectDescLines = splitDescription(desc);
+         if (projectDescLines.length > 0) {
+            projectDescLines.forEach(line => {
+               projectsLatex += `\\resumeItem{${line}}\n`;
+            });
+         } else {
+            projectsLatex += `\\resumeItem{${desc}}\n`;
+         }
          projectsLatex += `\\resumeItemListEnd\n`;
 
          projectsLatex += `\\resumeSubHeadingListEnd\n`;
@@ -217,10 +234,7 @@ ${socialLatex}
 \\vspace{-4pt}
 \\end{center}
 
-\\section{Professional Summary}
-\\begin{itemize}[leftmargin=0.004in, label={}]
-\\resumeItem{${data.summary}}
-\\end{itemize}
+${summaryLatex}
 
 ${workExperienceLatex}
 

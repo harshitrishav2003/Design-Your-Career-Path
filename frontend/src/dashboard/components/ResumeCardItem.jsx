@@ -113,11 +113,11 @@ function ResumeCardItem({ resume, refreshData, previewImage }) {
               >
                 View
               </DropdownMenuItem>
-              <DropdownMenuItem
+              {/* <DropdownMenuItem
                 onClick={() => navigate(`/my-resume/${resume._id}/download`)}
               >
                 Download
-              </DropdownMenuItem>
+              </DropdownMenuItem> */}
               <DropdownMenuItem onClick={() => setOpenAlert(true)}>
                 Delete
               </DropdownMenuItem>

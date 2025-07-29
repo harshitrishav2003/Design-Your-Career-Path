@@ -2,213 +2,204 @@ import { prepareResumeData } from "../../utils/prepareResumeData.js";
 import { splitDescription } from "../../utils/escapeUtils.js";
 
 function latexEscape(str = "") {
-    return str
-        .replace(/\\/g, "\\textbackslash{}")
-        .replace(/%/g, "\\%")
-        .replace(/\$/g, "\\$")
-        .replace(/#/g, "")
-        .replace(/&/g, "\\&")
-        .replace(/{/g, "\\{")
-        .replace(/}/g, "\\}")
-        .replace(/_/g, "\\_")
-        .replace(/\^/g, "\\^{}")
-        .replace(/~/g, "\\~{}");
+  return str
+    .replace(/\\/g, "\\textbackslash{}")
+    .replace(/%/g, "\\%")
+    .replace(/\$/g, "\\$")
+    .replace(/#/g, "\\#")
+    .replace(/&/g, "\\&")
+    .replace(/{/g, "\\{")
+    .replace(/}/g, "\\}")
+    .replace(/_/g, "\\_")
+    .replace(/\^/g, "\\^{}")
+    .replace(/~/g, "\\~{}");
 }
 
-export default function buildTemplateFiveLatex(formData) {
-    const data = prepareResumeData(formData);
+export default function buildTemplateJakeLatex(formData) {
+  const data = prepareResumeData(formData);
 
-    const name = latexEscape(data.name || "Name");
-    const jobTitle = latexEscape(data.jobTitle || "Job Title");
-    const address = latexEscape(data.address || "");
-    const email = latexEscape(data.email || "");
-    const phone = latexEscape(data.phone || "");
+  // === Header ===
+  const name = latexEscape(data.name);
+  const email = latexEscape(data.email);
+  const phone = latexEscape(data.phone);
 
-    let socialLinksLatex = "";
-    if (Array.isArray(data.social) && data.social.length > 0) {
-        socialLinksLatex = data.social
-            .map(
-                (social) =>
-                    `\\href{${latexEscape(social.link)}}{${latexEscape(social.name)}}`
-            )
-            .join(" \\hspace{1em} ");
-    }
+  let socialLatex = "";
+  if (Array.isArray(data.social)) {
+    socialLatex = data.social
+      .map(
+        (social) =>
+          `\\href{${latexEscape(social.link)}}{\\underline{${latexEscape(social.name)}}}`
+      )
+      .join(" $|$ ");
+  }
 
-    let headerLatex = `
+  const headerLatex = `
 \\begin{center}
-  {\\Huge \\textbf{${name}}} \\\\
-  {\\large ${jobTitle}} \\\\
-  \\vspace{6pt}
-  ${address} \\\\
-  Email: \\textbf{${email}} \\hspace{2em} Mobile: \\textbf{${phone}} \\\\
-  \\vspace{4pt}
-  ${socialLinksLatex} \\\\
-  \\vspace{8pt}
+  \\textbf{\\Huge \\scshape ${name}} \\\\
+  \\small ${phone} $|$ \\href{mailto:${email}}{\\underline{${email}}} $|$ ${socialLatex}
 \\end{center}
 `;
 
-    // === PROFESSIONAL SUMMARY ===
-    let summaryLatex = "";
-    if (data.summary) {
-        summaryLatex += `\\resheading{\\textbf{PROFESSIONAL SUMMARY}} \\\\[6pt]
-${latexEscape(data.summary)} \\\\[12pt]
-`;
-    }
+  // === Summary ===
+  let summaryLatex = "";
+  if (data.summary && data.summary.trim()) {
+    summaryLatex += `\\section{Professional Summary}\n\\begin{itemize}[leftmargin=0.004in, label={}]\n`;
+    summaryLatex += `\\resumeItem{${latexEscape(data.summary)}}\n`;
+    summaryLatex += `\\end{itemize}\n`;
+  }
 
-    // === EDUCATION ===
-    let educationLatex = `
-\\resheading{\\textbf{ACADEMIC DETAILS}} \\\\[4pt]
-\\begin{tabular}{ | l | l | l | l | l | }
-\\hline
-\\textbf{Examination} & \\textbf{Major} & \\textbf{University} & \\textbf{Start--End} & \\textbf{CPI/\\%} \\\\
-\\hline
-`;
-
-    data.education.forEach((edu) => {
-        educationLatex += `
-${latexEscape(edu.degree)} & ${latexEscape(edu.major || "")} & ${latexEscape(
-            edu.university
-        )} & ${latexEscape(edu.start)}--${latexEscape(
-            edu.end
-        )} & ${latexEscape(edu.cgpa)} \\\\
-\\hline
-`;
+  // === Experience ===
+  let experienceLatex = "";
+  if (data.experience.length > 0) {
+    experienceLatex += "\\section{Experience}\n\\resumeSubHeadingListStart\n";
+    data.experience.forEach((exp) => {
+      experienceLatex += `\\resumeSubheading
+{${latexEscape(exp.company)}}{${latexEscape(exp.start)} -- ${latexEscape(exp.end)}}
+{${latexEscape(exp.position)}}{${latexEscape(exp.city)}, ${latexEscape(exp.state)}}
+\\resumeItemListStart\n`;
+      splitDescription(exp.desc).forEach((line) => {
+        experienceLatex += `\\resumeItem{${latexEscape(line)}}\n`;
+      });
+      experienceLatex += "\\resumeItemListEnd\n";
     });
+    experienceLatex += "\\resumeSubHeadingListEnd\n";
+  }
 
-    educationLatex += `\\end{tabular} \\\\[12pt]`;
-
-    // === EXPERIENCE ===
-    let experienceLatex = "";
-    if (data.experience.length > 0) {
-        experienceLatex += `\\resheading{\\textbf{EXPERIENCE}} \\\\[4pt]\n`;
-        data.experience.forEach((exp) => {
-            experienceLatex += `
-\\ressubheading{${latexEscape(exp.company)}}{} \\\\
-\\textit{${latexEscape(exp.position)}} \\\\
-${latexEscape(exp.start)} -- ${latexEscape(exp.end)} | ${latexEscape(
-                exp.city
-            )}, ${latexEscape(exp.state)} \\\\[4pt]
-\\begin{itemize}\\setlength{\\itemsep}{3pt}
+  // === Education ===
+  let educationLatex = "";
+  if (data.education.length > 0) {
+    educationLatex += "\\section{Education}\n";
+    data.education.forEach((edu) => {
+      educationLatex += `\\resumeSubHeadingListStart\n\\resumeSubheading
+{${latexEscape(edu.university)}}{${latexEscape(edu.start)} -- ${latexEscape(edu.end)}}
+{\\textbf{${latexEscape(edu.degree)} in ${latexEscape(edu.major)}}}{${latexEscape(edu.city)}}
 `;
-            splitDescription(exp.desc).forEach((line) => {
-                experienceLatex += `\\resitem{${latexEscape(line)}}\n`;
-            });
-            experienceLatex += `\\end{itemize} \\\\[8pt]`;
+      if (edu.desc && edu.desc.trim()) {
+        educationLatex += `\\resumeItemListStart\n`;
+        splitDescription(edu.desc).forEach((line) => {
+          educationLatex += `\\resumeItem{${latexEscape(line)}}\n`;
         });
-    }
+        educationLatex += `\\resumeItemListEnd\n`;
+      }
+      educationLatex += "\\resumeSubHeadingListEnd\n";
+    });
+  }
 
-    // === PROJECTS ===
-    let projectsLatex = "";
-    if (data.projects.length > 0) {
-        projectsLatex += `\\resheading{\\textbf{PROJECTS}} \\\\[4pt]\n`;
-        data.projects.forEach((proj) => {
-            const link = proj.link ? `\\href{${proj.link}}{Demo}` : "";
-            projectsLatex += `
-\\ressubheading{${latexEscape(proj.projectName)}}{${link}} \\\\
-\\begin{itemize}\\setlength{\\itemsep}{3pt}
-`;
-            splitDescription(proj.description).forEach((line) => {
-                projectsLatex += `\\resitem{${latexEscape(line)}}\n`;
-            });
-            projectsLatex += `\\end{itemize} \\\\[8pt]`;
-        });
-    }
+  // === Projects ===
+  let projectLatex = "";
+  if (data.projects.length > 0) {
+    projectLatex += "\\section{Projects}\n";
+    data.projects.forEach((proj) => {
+      projectLatex += `\\resumeSubHeadingListStart\n\\item
+\\begin{tabular*}{1.0\\textwidth}[t]{l@{\\extracolsep{\\fill}}r}
+\\textbf{${latexEscape(proj.projectName)}} & \\href{${latexEscape(proj.link)}}{Demo} \\\\
+\\end{tabular*}\n\\resumeItemListStart\n`;
+      splitDescription(proj.description).forEach((line) => {
+        projectLatex += `\\resumeItem{${latexEscape(line)}}\n`;
+      });
+      projectLatex += `\\resumeItemListEnd\n\\resumeSubHeadingListEnd\n`;
+    });
+  }
 
-    // === SKILLS ===
-    let skillsLatex = "";
-    if (data.skills.length > 0) {
-        skillsLatex += `\\resheading{\\textbf{TECHNICAL SKILLS}} \\\\[6pt]\n\\begin{itemize}\\setlength{\\itemsep}{3pt}\n`;
-        data.skills.forEach((skill) => {
-            skillsLatex += `\\resitem{${latexEscape(skill.name)}}\n`;
-        });
-        skillsLatex += `\\end{itemize} \\\\[6pt]`;
-    }
+  // === Skills ===
+  let skillsLatex = "";
+  if (data.skills.length > 0) {
+    skillsLatex += "\\section{Skills}\n";
+    skillsLatex += "\\small{\\item{";
+    data.skills.forEach((skill, idx) => {
+      skillsLatex += `${latexEscape(skill.name)}${
+        idx < data.skills.length - 1 ? ", " : ""
+      }`;
+    });
+    skillsLatex += "}}\n";
+  }
 
-    // === CERTIFICATIONS ===
-    let certificationsLatex = "";
-    if (data.certifications.length > 0) {
-        certificationsLatex += `\\resheading{\\textbf{CERTIFICATIONS}} \\\\[6pt]\n\\begin{itemize}\\setlength{\\itemsep}{3pt}\n`;
-        data.certifications.forEach((cert) => {
-            certificationsLatex += `\\resitem{${latexEscape(cert.name)}}\n`;
-        });
-        certificationsLatex += `\\end{itemize} \\\\[6pt]`;
-    }
+  // === Certifications ===
+  let certificationsLatex = "";
+  if (data.certifications.length > 0) {
+    certificationsLatex += "\\section{Certifications / Extra-Curriculum}\n\\resumeItemListStart\n";
+    data.certifications.forEach((cert) => {
+      certificationsLatex += `\\resumeItem{${latexEscape(cert.name)}}\n`;
+    });
+    certificationsLatex += "\\resumeItemListEnd\n";
+  }
 
-    // === ACHIEVEMENTS ===
-    let achievementsLatex = "";
-    if (data.achievements && data.achievements.length > 0) {
-        achievementsLatex += `\\resheading{\\textbf{ACHIEVEMENTS}} \\\\[6pt]\n\\begin{itemize}\\setlength{\\itemsep}{3pt}\n`;
-        data.achievements.forEach((ach) => {
-            achievementsLatex += `\\resitem{${latexEscape(ach.name)}}\n`;
-        });
-        achievementsLatex += `\\end{itemize} \\\\[6pt]`;
-    }
+  // === Achievements ===
+  let achievementsLatex = "";
+  if (data.achievements.length > 0) {
+    achievementsLatex += "\\section{Achievements}\n\\resumeItemListStart\n";
+    data.achievements.forEach((ach) => {
+      achievementsLatex += `\\resumeItem{${latexEscape(ach.name)}}\n`;
+    });
+    achievementsLatex += "\\resumeItemListEnd\n";
+  }
 
-    // === INTERESTS ===
-    let interestsLatex = "";
-    if (data.interests.length > 0) {
-        interestsLatex += `\\resheading{\\textbf{INTERESTS AND HOBBIES}} \\\\[6pt]\n\\begin{itemize}\\setlength{\\itemsep}{3pt}\n`;
-        data.interests.forEach((interest) => {
-            interestsLatex += `\\resitem{${latexEscape(interest.name)}}\n`;
-        });
-        interestsLatex += `\\end{itemize} \\\\[6pt]`;
-    }
+  // === Interests ===
+  let interestsLatex = "";
+  if (data.interests.length > 0) {
+    interestsLatex += "\\section{Interests}\n\\resumeItemListStart\n";
+    data.interests.forEach((interest) => {
+      interestsLatex += `\\resumeItem{${latexEscape(interest.name)}}\n`;
+    });
+    interestsLatex += "\\resumeItemListEnd\n";
+  }
 
-    return `
-\\documentclass[a4paper,10pt]{article}
-\\usepackage[top=0.75in, bottom=0.75in, left=0.55in, right=0.85in]{geometry}
-\\usepackage{graphicx}
-\\usepackage{hyperref}
-\\usepackage{url}
-\\usepackage{palatino}
+  // === Return the complete document ===
+  return `
+\\documentclass[letterpaper,11pt]{article}
+\\usepackage{latexsym}
+\\usepackage[empty]{fullpage}
+\\usepackage{titlesec}
+\\usepackage{marvosym}
+\\usepackage[usenames,dvipsnames]{color}
+\\usepackage{enumitem}
+\\usepackage[hidelinks]{hyperref}
+\\usepackage{fancyhdr}
+\\usepackage[english]{babel}
 \\usepackage{tabularx}
-\\fontfamily{SansSerif}
-\\selectfont
-\\usepackage[T1]{fontenc}
-\\usepackage[utf8]{inputenc}
-\\usepackage{color}
+\\usepackage{fontawesome5}
+\\input{glyphtounicode}
 
-\\definecolor{mygrey}{gray}{0.75}
-\\textheight=9.75in
+\\pagestyle{fancy}
+\\fancyhf{}
+\\fancyfoot{}
+\\renewcommand{\\headrulewidth}{0pt}
+\\renewcommand{\\footrulewidth}{0pt}
+\\addtolength{\\oddsidemargin}{-0.5in}
+\\addtolength{\\evensidemargin}{-0.5in}
+\\addtolength{\\textwidth}{1in}
+\\addtolength{\\topmargin}{-.5in}
+\\addtolength{\\textheight}{1in}
+
+\\urlstyle{same}
 \\raggedbottom
-
+\\raggedright
 \\setlength{\\tabcolsep}{0in}
-\\newcommand{\\isep}{-2 pt}
-\\newcommand{\\lsep}{-0.5cm}
-\\newcommand{\\psep}{-0.6cm}
-\\renewcommand{\\labelitemii}{$\\circ$}
-
-\\pagestyle{empty}
+\\titleformat{\\section}{\\vspace{-4pt}\\scshape\\raggedright\\large\\bfseries}{}{0em}{}[\\color{black}\\titlerule \\vspace{-5pt}]
+\\pdfgentounicode=1
 
 % Custom commands
-\\newcommand{\\resitem}[1]{\\item #1}
-\\newcommand{\\resheading}[1]{{\\small \\colorbox{mygrey}{\\begin{minipage}{0.975\\textwidth}{\\textbf{#1}}\\end{minipage}}}}
-\\newcommand{\\ressubheading}[2]{
-\\vspace{4pt}
-\\begin{tabular*}{6.62in}{l @ {\\extracolsep{\\fill}} r}
-\\textsc{\\textbf{#1}} & \\textsc{#2} \\\\
-\\end{tabular*}\\\\[2pt]
-}
+\\newcommand{\\resumeItem}[1]{\\item\\small{{#1 \\vspace{-2pt}}}}
+\\newcommand{\\resumeSubheading}[4]{\\vspace{-2pt}\\item
+\\begin{tabular*}{1.0\\textwidth}[t]{l@{\\extracolsep{\\fill}}r}
+\\textbf{#1} & \\textbf{\\small #2} \\\\
+\\textit{\\small#3} & \\textit{\\small #4} \\\\
+\\end{tabular*}\\vspace{-7pt}}
+\\newcommand{\\resumeSubHeadingListStart}{\\begin{itemize}[leftmargin=0.0in, label={}]}
+\\newcommand{\\resumeSubHeadingListEnd}{\\end{itemize}}
+\\newcommand{\\resumeItemListStart}{\\begin{itemize}}
+\\newcommand{\\resumeItemListEnd}{\\end{itemize}\\vspace{-5pt}}
 
 \\begin{document}
 ${headerLatex}
-
 ${summaryLatex}
-
-${educationLatex}
-
 ${experienceLatex}
-
-${projectsLatex}
-
+${educationLatex}
+${projectLatex}
 ${skillsLatex}
-
 ${certificationsLatex}
-
 ${achievementsLatex}
-
 ${interestsLatex}
-
 \\end{document}
 `;
 }
