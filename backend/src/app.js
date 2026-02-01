@@ -39,6 +39,11 @@ app.use(express.urlencoded({ extended: true, limit: "16kb" }))
 app.use(express.static("public"));
 app.use(cookieParser());
 
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
+
 //routes
 import userRouter from "./routes/user.routes.js";
 import userResumeRouter from "./routes/userResume.routes.js";
